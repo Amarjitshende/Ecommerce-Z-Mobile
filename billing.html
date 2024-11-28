@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Z-mobile</title>
+
+    <!-- email otp smtpjs cnd -->
+    <script src="https://smtpjs.com/v3/smtp.js">
+    </script>
+
+    <!-- swiperjs cdn link -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!-- Font awesome cdn link -->
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Stylesheet link -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Product Stylesheet link -->
+    <link rel="stylesheet" href="product.css">
+
+    <!-- razerpay cdn -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <style>
+        :root {
+            --orange: #ff7800;
+            --black: #130f40;
+            --white: #ffffff;
+            --light-color: #666;
+            /* --box-shadow: 0px 0px 16px -3px rgba(0, 0, 0, 0.75); */
+            --border: 0.5rem solid rgba(0, 0, 0, 0.1);
+            /* --outline: 0.5rem solid rgba(0, 0, 0, 0.1); */
+            --outline-hover: 0.3rem solid var(--orange);
+            --box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+        }
+
+        .bill {
+            width: 100vw;
+            height: 100vh;
+            margin-top: 10rem;
+        }
+
+        .bill .bill-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .bill .bill-container h2 {
+            text-align: center;
+            font-size: 2rem;
+        }
+
+        .bill .bill-container .address {
+            grid-column: 50%;
+            border-right: 1px solid var(--light-color);
+        }
+
+        .bill .bill-container .address form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0.5rem 1rem;
+        }
+
+        .bill .bill-container .address form input {
+            height: 4rem;
+            margin: 0.5rem;
+            width: 100%;
+        }
+
+        .bill .bill-container .address form input::placeholder {
+            padding-left: 1rem;
+            font-size: 2rem;
+        }
+
+        .bill .bill-container .address form button {
+            width: 30%;
+            text-align: center;
+
+        }
+
+        .bill .bill-container .billing {
+            grid-column: 50%;
+        }
+
+
+        .bill-container .billing .bill-items {
+            background: #eee;
+            width: 100%;
+            margin: 0 2rem;
+        }
+
+        .bill-container .billing .total {
+            padding-left: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- header section start -->
+    <header class="header">
+
+        <a href="index.html" class="logo"><i class="fa-solid fa-mobile-screen"></i>Z-mobile</a>
+
+        <nav class="nav">
+            <a href="index.html">Home</a>
+            <a href="features.html">Features</a>
+            <a href="products.html">Products</a>
+            <a href="categories.html">Categories</a>
+            <a href="reviews.html">Reviews</a>
+            <a href="blogs.html">Blogs</a>
+        </nav>
+
+        <div class="icons">
+            <div id="menu-btn" class="fas fa-bars"></div>
+            <div id="search-btn" class="fas fa-search"></div>
+            <div id="cart-btn" class="fas fa-shopping-bag"></div>
+            <div id="user-btn" class="fas fa-user"></div>
+            <div id="profile" class="fa-solid fa-address-card"><span id="profileName"></span>
+                <div class="profile-info">
+                    <a href="#" onclick="move()"><i class="fa-solid fa-gear" id="setting"></i></a>
+                    <h3>Name: <span id="profileName2"></span></h3>
+                    <h3>Email: <span id="profileEmail" style="text-transform: lowercase;"></span></h3>
+                    <a href="#" onClick="logout()"><i class="fas fa-sign-out btn">
+                            <h3 style="display: inline;"> Logout</h3>
+                        </i> </a>
+                </div>
+            </div>
+        </div>
+
+        <form action="#" class="search-form">
+            <input type="search" id="search-box" placeholder="search here...">
+            <label for="search-box" class="fas fa-search"></label>
+
+        </form>
+
+        <div class="shopping-cart">
+
+            <h3 style="font-size: 2rem; text-align: center;">My cart</h3>
+            <div class="cart-items">
+                <!-- Cart items will be dynamically added here -->
+            </div>
+            <div class="total">Total : Rs.<span class="total-price">0</span></div>
+            <a href="#" class="btn checkout">Checkout</a>
+
+            <!-- <div class="box">
+                <i class="fas fa-trash"></i>
+                <img src="https://m.media-amazon.com/images/I/81BTRVfsuFL._SX679_.jpg" height="250px" width="200px" alt="">
+                <div class="content">
+                    <h3>Samsung Galaxy M15 5G</h3>
+                    <span class="price">Rs.13,299/-</span>
+                    <span class="quantity">qty: 1</span>
+                </div>
+            </div>
+            <div class="box">
+                <i class="fas fa-trash"></i>
+                <img src="https://m.media-amazon.com/images/I/61Id6WJDWqL._SX679_.jpg" height="250px" width="200px" alt="">
+                <div class="content">
+                    <h3>iQOO Z7 Pro 5G</h3>
+                    <span class="price">Rs.23,999/-</span>
+                    <span class="quantity">qty: 1</span>
+                </div>
+            </div> 
+                <div class="total">total : Rs.77,297</div>
+                <a href="#" class="btn">checkout</a> -->
+
+
+        </div>
+        </div>
+
+        <div class="login-form">
+            <h3>Login now</h3>
+            <input id="emailAdd" type="email" placeholder="your email" class="box">
+            <input id="userPw" type="password" placeholder="your password" class="box">
+            <p>Forgot your password <a href="#" id="forgot">Click here</a>
+            </p>
+            <p>Don't have account ? <a href="#" id="signup-btn">Create now</a>
+            </p>
+            <input type="submit" value="Login Now" class="btn" onClick="login()">
+        </div>
+
+        <!-- Changes -->
+
+        <div class="forgot-form" id="forgot">
+            <h3>Forgot password</h3>
+            <input id="email1" type="email" placeholder="Your email" class="box">
+            <input onclick="sendOTP()" id="otp-btn" value="Send otp" class="btn one-btn" type="submit">
+        </div>
+
+        <div class="otp-form" id="otp-btn">
+            <h3>Opt verification</h3>
+            <input type="text" id="otp" placeholder="Enter OTP" class="box">
+            <input type="submit" id="newPasswordForm" value="your otp" class="btn" onclick="verifyOTP()">
+        </div>
+
+        <div class="password-form" id="newPasswordForm">
+            <h3>Set new password</h3>
+            <input type="password" id="newPassword" placeholder="Enter new password" class="box">
+            <a href="#" id="pass" type="submit" onclick="updatePassword()" class="btn">Update Password</a>
+        </div>
+
+        <!-- Changes -->
+
+        <div class="signup-form" id="signup-btn">
+            <h3>Signup now</h3>
+            <a href="#" class="cancel-btn" id="cancel-btn"><i class="fas fa-multiply"></i></a>
+            <input id="name" type="text" placeholder="your name" class="box">
+            <input id="email" type="email" placeholder="your email" class="box">
+            <input id="pw" type="password" placeholder="your password" class="box">
+            <input id="password" type="password" placeholder="confirm password" class="box">
+            <input type="submit" value="Signup Now" id="signup" class="btn" onClick="check()">
+        </div>
+
+    </header>
+    <!-- header section end -->
+
+    <!-- address & billing section start -->
+    <section id="bill" class="bill">
+        <h1 class="heading"> <span>Address & Billing</span></h1>
+
+        <div class="bill-container">
+            <div class="address">
+                <h2>Address</h2>
+                <form action="#">
+                    <input type="text" placeholder="Full Name" id="fname">
+                    <input type="text" placeholder="Phone number" id="num">
+                    <input type="text" placeholder="Pincode" id="code">
+                    <input type="text" placeholder="state" id="state">
+                    <input type="text" placeholder="city" id="city">
+                    <input type="text" placeholder="House No." id="house">
+                    <input type="text" placeholder="Landmark" id="land">
+                    <button type="submit" class="btn">Save</button>
+                </form>
+            </div>
+            <div class="billing">
+                <h2>Billing</h2>
+                <div class="bill-items">
+                    <!-- Cart items will be dynamically added here -->
+                </div>
+                <div class="total" style="font-size: 2rem;">Total : Rs.<span class="billtotal-price">0</span>
+                    <a href="#" id="rzp-button1" class="btn checkout">Checkout</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- address & billing section end -->
+
+
+    <!-- footer section start -->
+
+    <section class="footer">
+
+        <div class="box-container">
+
+            <div class="box">
+                <h3><i class="fa-solid fa-mobile"></i> Z-Mobile</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, porro!</p>
+                <div class="share">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-x-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <div class="admin-div">
+                    <a href="#" onclick="window.location.href = 'adminlogin.html'"><i
+                            class="fa-solid fa-right-to-bracket"></i>
+                        <h4>admin</h4>
+                    </a>
+                </div>
+            </div>
+
+            <div class="box">
+                <h3>Contact info</h3>
+                <a href="#" class="links"><i class="fas fa-phone"></i> 1800-1231-1231</a>
+                <a href="#" class="links"><i class="fas fa-phone"></i> 1800-1231-1000</a>
+                <a style="text-transform: lowercase;" href="#" class="links"><i class="fas fa-mail-bulk"></i>
+                    zmobile123@gmail.com</a>
+                <a href="#" class="links"><i class="fas fa-location-dot"></i> Mumbai, India - 441810</a>
+            </div>
+
+            <div class="box">
+                <h3>Quick links</h3>
+                <a href="#home" class="links"><i class="fas fa-arrow-right"></i> Home</a>
+                <a href="#features" class="links"><i class="fas fa-arrow-right"></i> Features</a>
+                <a href="#products" class="links"><i class="fas fa-arrow-right"></i> Products</a>
+                <a href="#categories" class="links"><i class="fas fa-arrow-right"></i> Categories</a>
+                <a href="#reviews" class="links"><i class="fas fa-arrow-right"></i> Reviews</a>
+                <a href="#blogs" class="links"><i class="fas fa-arrow-right"></i> Blogs</a>
+            </div>
+
+            <div class="box">
+                <h3>newsletter</h3>
+                <p>subscribe for latest updates</p>
+                <input type="email" placeholder="your email" class="email">
+                <input type="submit" value="subscribe" class="sb-btn">
+                <img src="https://tse3.mm.bing.net/th?id=OIP.EybAxTSCq4F0wBGW7JA4IQHaCO&pid=Api&P=0&h=180" alt="">
+            </div>
+        </div>
+
+        <div class="credit">created by <span>amit bhujade</span> | All right reserved.</div>
+    </section>
+    <!-- footer section end -->
+
+
+
+
+
+    <!-- Javascript section -->
+    <script src="mobile.js"></script>
+    <script src="login.js"></script>
+    <script src="cart.js"></script>
+    <script src="forgot.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+
+</body>
+
+</html>
